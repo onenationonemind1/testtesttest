@@ -32,15 +32,14 @@
     <div id="div-container"></div>
 
     <script>
-      function session() {
-        const session = async () => {
-          console.log(">>> session");
-          const res = await fetch("/session");
-          if (res.ok) {
-            console.log("go");
-          }
-        };
-      }
+      const session = async () => {
+        console.log(">>> session");
+        const res = await fetch("/session");
+        if (res.ok) {
+          console.log("go");
+        }
+      };
+
       ///
       function myFunction(flag) {
         // Do something with the flag variable
