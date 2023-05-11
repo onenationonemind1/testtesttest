@@ -107,7 +107,7 @@ async function transcribeAudio(filename) {
     const transcript = await openai.createTranscription(
       fs.createReadStream(filename), //번역할 파일
       "whisper-1", //사용할 모델
-      undefined, // the prompt to use for transcription
+      "", // the prompt to use for transcription
       "json", // the format of the transcription
       1, // temperture
       "en" //language en, es, fr, it, de, ja, ko, nl, pl, pt , ru ,zh-cn, zh-tw
@@ -223,7 +223,7 @@ app.get("/start", (req, res) => {
     hashMap[req.session.flag] = 0;
     console.log("/stop", req.session.flag);
     console.log("녹음 종료되었습니다.");
-    res.json(hashMap[req.session.flag]);
+    res.json();
   });
 });
 
