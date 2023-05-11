@@ -103,6 +103,7 @@ function recordAudio(filename, resFlag1) {
 
 // 녹음 파일을 whisper에 보냄 >>> 음성을 텍스트 파일로 변환.
 async function transcribeAudio(filename) {
+  console.log(filename);
   try {
     const transcript = await openai.createTranscription(
       fs.createReadStream(filename), //번역할 파일
@@ -112,11 +113,13 @@ async function transcribeAudio(filename) {
       1, // temperture
       "en" //language en, es, fr, it, de, ja, ko, nl, pl, pt , ru ,zh-cn, zh-tw
     );
+    console.log(transcript.data.text;)
     return transcript.data.text;
   } catch (e) {
     console.error(e);
   }
 }
+transcribeAudio("recorded_audio_2023-5-11_17-30-25.wav");
 
 // User의 녹음파일을 삭제함.
 function deleteRecordedAudio(filename) {
