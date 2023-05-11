@@ -107,7 +107,7 @@ async function transcribeAudio(filename) {
     const transcript = await openai.createTranscription(
       fs.createReadStream(filename), //번역할 파일
       "whisper-1", //사용할 모델
-      undefined, // the prompt to use for transcription
+      "undefined", // the prompt to use for transcription
       "json", // the format of the transcription
       1, // temperture
       "en" //language en, es, fr, it, de, ja, ko, nl, pl, pt , ru ,zh-cn, zh-tw
