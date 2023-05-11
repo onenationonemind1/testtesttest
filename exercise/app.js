@@ -114,7 +114,7 @@ async function transcribeAudio(filename) {
     );
     return transcript.data.text;
   } catch (e) {
-    console.error(e);
+    console.error("여기서 실패하는거래", e);
   }
 }
 
@@ -241,12 +241,12 @@ app.get("/stop", async (req, res) => {
   res.json({ transcription });
   //번역이 끝났음을 알기 위함.
   console.log("/stop 해쉬값 : ", hashMap[req.session.flag]);
-  console.log(
-    "User음성 <- 텍스트 변환 완료",
-    transcription,
-    "falg = ",
-    hashMap[req.session.flag]
-  );
+  // console.log(
+  //   "User 음성 <- 텍스트 변환 완료",
+  //   transcription,
+  //   "falg = ",
+  //   hashMap[req.session.flag]
+  // );
   messages.push({ role: "user", content: transcription });
 });
 
