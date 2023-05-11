@@ -232,21 +232,14 @@ app.get("/start", (req, res) => {
 // Stop 접근
 app.get("/stop", async (req, res) => {
   console.log("-----번역을 시작합니다.------");
-  console.log("req.session.flag : ", req.session.flag);
 
   // User가 한말을 text로 변환.
-  hashMap[req.session.flag] = 1;
-  console.log("flag : ", hashMap[req.session.flag]);
   const transcription = await transcribeAudio(newFilename);
+  console.log(transcription);
   res.json({ transcription });
   //번역이 끝났음을 알기 위함.
   console.log("/stop 해쉬값 : ", hashMap[req.session.flag]);
-  // console.log(
-  //   "User 음성 <- 텍스트 변환 완료",
-  //   transcription,
-  //   "falg = ",
-  //   hashMap[req.session.flag]
-  // );
+  console.log("User 음성 <- 텍스트 변환 완료", transcription);
   messages.push({ role: "user", content: transcription });
 });
 

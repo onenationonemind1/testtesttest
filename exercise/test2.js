@@ -16,10 +16,15 @@ async function transcribe(filename) {
       1, // temperture
       "en"
     );
-    console.log(resp.data.text);
+    console.log("2", resp.data.text);
+    return resp.data.text;
   } catch (e) {
     console.error(e);
   }
 }
-
-transcribe("b.mp3");
+async function y() {
+  const d = await transcribe("b.mp3");
+  console.log("1", d);
+  console.log("3");
+}
+y();
