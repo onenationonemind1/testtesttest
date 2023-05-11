@@ -11,7 +11,8 @@
     <div>
       <button onclick="startRecording()">녹음 시작</button>
       <button id="add-div-button" onclick="stopRecording()">녹음 종료</button>
-      <button id="add-div-button" onclick="myFunction()">녹음 종료</button>
+      <button onclick="session()">편집</button>
+
       <p id="status"></p>
     </div>
 
@@ -31,6 +32,21 @@
     <div id="div-container"></div>
 
     <script>
+      function session() {
+        const session = async () => {
+          console.log(">>> session");
+          const res = await fetch("/session");
+          if (res.ok) {
+            console.log("go");
+          }
+        };
+      }
+      ///
+      function myFunction(flag) {
+        // Do something with the flag variable
+        console.log("The flag is: " + flag);
+      }
+      ///
       // 오디오 div 생성.
       function addAudio(mp3Filename) {
         const audio = document.createElement("audio");
@@ -46,14 +62,6 @@
         audio.play();
         document.body.appendChild(audio);
       }
-
-      ///
-      const myFunction = async () => {
-        // Do something with the flag variable
-        const res = await fetch("/session");
-        console.log("The flag is: ");
-      };
-      ///
 
       const startRecording = async () => {
         console.log("녹음 준비 중");
@@ -104,6 +112,9 @@
 
       let divCoun = 0;
 
+      function myFunction() {
+        console.log("newDIv클림됨!");
+      }
       const chatAns = async () => {
         console.log("chatgpt가 답변중입니다..");
         const res = await fetch("/chat");

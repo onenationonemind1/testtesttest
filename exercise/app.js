@@ -103,23 +103,20 @@ function recordAudio(filename, resFlag1) {
 
 // 녹음 파일을 whisper에 보냄 >>> 음성을 텍스트 파일로 변환.
 async function transcribeAudio(filename) {
-  console.log(filename);
   try {
     const transcript = await openai.createTranscription(
       fs.createReadStream(filename), //번역할 파일
       "whisper-1", //사용할 모델
-      "", // the prompt to use for transcription
+      undefined, // the prompt to use for transcription
       "json", // the format of the transcription
       1, // temperture
       "en" //language en, es, fr, it, de, ja, ko, nl, pl, pt , ru ,zh-cn, zh-tw
     );
-    console.log(transcript.data.text);
     return transcript.data.text;
   } catch (e) {
     console.error(e);
   }
 }
-// transcribeAudio("recorded_audio_2023-5-11_17-30-25.wav");
 
 // User의 녹음파일을 삭제함.
 function deleteRecordedAudio(filename) {
@@ -209,6 +206,8 @@ app.get("/", (req, res) => {
 // Start 접근:
 app.get("/start", (req, res) => {
   console.log("/start에 접근하였습니다.");
+  console.log("req.session.flag : ", req.session.flag);
+
   console.log(
     "req.session.flag {다른 라우터에 해쉬맵 연결 되는지 확인} : ",
     req.session.flag
@@ -223,7 +222,7 @@ app.get("/start", (req, res) => {
   // recordAudio 함수를 사용하여, flag 초기화
   recordAudio(newFilename, req.session.flag).then(() => {
     //녹음이 종료된 후, flag 초기화
-    hashMap[req.session.flag] = 0;
+    hashMap[req.session.flag] = 1;
     console.log("/stop", req.session.flag);
     console.log("녹음 종료되었습니다.");
     res.json();
@@ -233,6 +232,8 @@ app.get("/start", (req, res) => {
 // Stop 접근
 app.get("/stop", async (req, res) => {
   console.log("-----번역을 시작합니다.------");
+  console.log("req.session.flag : ", req.session.flag);
+
   // User가 한말을 text로 변환.
   hashMap[req.session.flag] = 1;
   console.log("flag : ", hashMap[req.session.flag]);
@@ -282,8 +283,10 @@ app.get("/delete", async (req, res) => {
 
 app.get("/session", (req, res) => {
   // 세션 정보를 JSON 형태로 응답하면서, index 템플릿에도 세션 정보를 전달합니다.
-  console.log("req.session.flag : ", req.session.flag);
-
+  console.log(
+    "req.session.flag {다른 라우터에 해쉬맵 연결 되는지 확인} : ",
+    req.session.flag
+  );
   res.json();
 });
 ///
