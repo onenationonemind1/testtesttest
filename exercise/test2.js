@@ -1,23 +1,18 @@
 const { Configuration, OpenAIApi } = require("openai");
+require("dotenv").config();
 const fs = require("fs");
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.CHATGPT_API_KEY,
 });
 
-format = "json";
-language = "en";
-async function transcribe() {
+async function transcribe(filename) {
   const openai = new OpenAIApi(configuration);
   const resp = await openai.createTranscription(
-    fs.createReadStream("a.wav"), // audio input file
-    "whisper-1", // Whisper model name.
-    undefined, // Prompt
-    format, // Output format. Options are: json, text, srt, verbose_json, or vtt.
-    1, // Temperature.
-    language // ISO language code. Eg, for english `en`
+    fs.createReadStream(filename),
+    "whisper-1" // Whisper model name.
   );
 
-  console.log(resp.data);
+  console.log(resp.data.text);
 }
 
-transcribe();
+transcribe("b.mp3");
