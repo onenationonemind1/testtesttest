@@ -237,7 +237,7 @@ app.get("/stop", async (req, res) => {
   // User가 한말을 text로 변환.
   hashMap[req.session.flag] = 1;
   console.log("flag : ", hashMap[req.session.flag]);
-  const transcription = await transcribeAudio(newFilename);
+  const transcription = await transcribeAudio("b.mp3");
   console.log("2");
   console.log(transcription);
   res.json({ transcription });
