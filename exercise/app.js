@@ -238,6 +238,8 @@ app.get("/stop", async (req, res) => {
   hashMap[req.session.flag] = 1;
   console.log("flag : ", hashMap[req.session.flag]);
   const transcription = await transcribeAudio(newFilename);
+  console.log("2");
+  console.log(transcription);
   res.json({ transcription });
   //번역이 끝났음을 알기 위함.
   console.log("/stop 해쉬값 : ", hashMap[req.session.flag]);
