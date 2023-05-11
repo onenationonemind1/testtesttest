@@ -113,13 +113,13 @@ async function transcribeAudio(filename) {
       1, // temperture
       "en" //language en, es, fr, it, de, ja, ko, nl, pl, pt , ru ,zh-cn, zh-tw
     );
-    console.log(transcript.data.text;)
+    console.log(transcript.data.text);
     return transcript.data.text;
   } catch (e) {
     console.error(e);
   }
 }
-transcribeAudio("recorded_audio_2023-5-11_17-30-25.wav");
+// transcribeAudio("recorded_audio_2023-5-11_17-30-25.wav");
 
 // User의 녹음파일을 삭제함.
 function deleteRecordedAudio(filename) {
@@ -282,7 +282,9 @@ app.get("/delete", async (req, res) => {
 
 app.get("/session", (req, res) => {
   // 세션 정보를 JSON 형태로 응답하면서, index 템플릿에도 세션 정보를 전달합니다.
-  res.render("index", { flag: req.session.flag });
+  console.log("req.session.flag : ", req.session.flag);
+
+  res.json();
 });
 ///
 
