@@ -73,7 +73,7 @@ function recordAudio(filename, resFlag1) {
 
     writable.pipe(output);
     console.log("녹음을 시작합니다..");
-    console.log("filename : ", filenmae);
+    console.log("filename : ", filename);
     micInstance.start();
 
     // 녹음이 종료 될때까지 while문 작동, 이후 flag 1을 만난 후 녹음을 종료함.
