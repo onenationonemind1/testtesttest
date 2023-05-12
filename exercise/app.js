@@ -297,6 +297,7 @@ app.get("/session", (req, res) => {
     "req.session.flag {다른 라우터에 해쉬맵 연결 되는지 확인} : ",
     req.session.flag
   );
+  console.log("req.session.file  : ", req.session.fileName);
   res.json();
 });
 ///
