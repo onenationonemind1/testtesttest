@@ -223,7 +223,7 @@ app.get("/start", async (req, res) => {
   req.session.fileNmae = newFilename;
   console.log("res.session.filename", req.session.fileNmae);
   // recordAudio 함수를 사용하여, flag 초기화
-  await recordAudio(newFilename, req.session.flag);
+  await recordAudio(req.session.fileNmae, req.session.flag);
 
   //녹음이 종료된 후, flag 초기화
   hashMap[req.session.flag] = 0;
@@ -236,7 +236,8 @@ app.get("/start", async (req, res) => {
 // Stop 접근
 app.get("/stop", async (req, res) => {
   console.log("-----번역을 시작합니다.------");
-  console.log("filename", req.session.fileNmae);
+  console.log("filename : ", req.session.fileNmae);
+  console.log("flag : ", req.session.flag);
   // User가 한말을 text로 변환.
   hashMap[req.session.flag] = 1;
   console.log("flag : ", hashMap[req.session.flag]);
