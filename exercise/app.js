@@ -195,8 +195,8 @@ function makeHashMap() {
 // Root 접근: index 파일을 렌더링
 app.get("/", (req, res) => {
   req.session.flag = makeHashMap(); //makeHashMap: 현재 시/분/초로 해쉬맵을 생성해줌.
-  req.session.fileNmae = "";
-  console.log("file", req.session.fileNmae);
+  req.session.fileName = "";
+  console.log("file", req.session.fileName);
   hashMap[req.session.flag] = 0;
   console.log("req.session.flag : ", req.session.flag);
   console.log("해쉬맵 키값확인", Object.keys(hashMap));
@@ -223,15 +223,15 @@ app.get("/start", async (req, res) => {
   newFilename = `recorded_audio_${now.getFullYear()}-${
     now.getMonth() + 1
   }-${now.getDate()}_${now.getHours()}-${now.getMinutes()}-${now.getSeconds()}.wav`;
-  req.session.fileNmae = newFilename;
-  console.log("res.session.filename", req.session.fileNmae);
+  req.session.fileName = newFilename;
+  console.log("res.session.filename", req.session.fileName);
   // recordAudio 함수를 사용하여, flag 초기화
-  await recordAudio(req.session.fileNmae, req.session.flag);
+  await recordAudio(req.session.fileName, req.session.flag);
 
   //녹음이 종료된 후, flag 초기화
   hashMap[req.session.flag] = 0;
   console.log("/stop", req.session.flag);
-  console.log("/stop file name : ", req.session.fileNmae);
+  console.log("/stop file name : ", req.session.fileName);
   console.log("녹음 종료되었습니다.");
 
   res.json();
@@ -240,7 +240,7 @@ app.get("/start", async (req, res) => {
 // Stop 접근
 app.get("/stop", async (req, res) => {
   console.log("-----번역을 시작합니다.------");
-  console.log("filename : ", req.session.fileNmae);
+  console.log("filename : ", req.session.fileName);
   console.log("flag : ", req.session.flag);
   // User가 한말을 text로 변환.
   hashMap[req.session.flag] = 1;
