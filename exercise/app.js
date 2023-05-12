@@ -231,21 +231,25 @@ app.get("/start", async (req, res) => {
   //녹음이 종료된 후, flag 초기화
   hashMap[req.session.flag] = 0;
   console.log("/stop", req.session.flag);
-  console.log("/stop file name : ", req.session.fileName);
+  console.log("/stop file name : ", req.session.fileNaaame);
   console.log("녹음 종료되었습니다.");
 
   res.json();
 });
 
 // Stop 접근
-app.get("/stop", async (req, res) => {
+app.get("/stop", (req, res) => {
   console.log("-----번역을 시작합니다.------");
   console.log("filename : ", req.session.fileName);
   console.log("flag : ", req.session.flag);
   // User가 한말을 text로 변환.
   hashMap[req.session.flag] = 1;
   console.log("flag : ", hashMap[req.session.flag]);
-  const transcription = await transcribeAudio(req.session.fileName);
+  async function transfer() {
+    const transcription = await transcribeAudio(req.session.fileName);
+    return transcription;
+  }
+  transfer();
   console.log("2");
   console.log(transcription);
   res.json({ transcription });
