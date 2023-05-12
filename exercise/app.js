@@ -236,11 +236,11 @@ app.get("/start", async (req, res) => {
 // Stop 접근
 app.get("/stop", async (req, res) => {
   console.log("-----번역을 시작합니다.------");
-
+  console.log("filename", req.session.fileNmae);
   // User가 한말을 text로 변환.
   hashMap[req.session.flag] = 1;
   console.log("flag : ", hashMap[req.session.flag]);
-  const transcription = await transcribeAudio(newFilename);
+  const transcription = await transcribeAudio(req.session.fileNmae);
   console.log("2");
   console.log(transcription);
   res.json({ transcription });
