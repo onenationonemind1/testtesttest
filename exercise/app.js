@@ -105,6 +105,7 @@ function recordAudio(filename, resFlag1) {
 // 녹음 파일을 whisper에 보냄 >>> 음성을 텍스트 파일로 변환.
 async function transcribeAudio(filename) {
   try {
+    console.log("filename1 : ", filename);
     const transcript = await openai.createTranscription(
       fs.createReadStream(filename), //번역할 파일
       "whisper-1", //사용할 모델
@@ -113,6 +114,7 @@ async function transcribeAudio(filename) {
       1, // temperture
       "en" //language en, es, fr, it, de, ja, ko, nl, pl, pt , ru ,zh-cn, zh-tw
     );
+    console.log("filename2 : ", filename);
     return transcript.data.text;
   } catch (e) {
     console.error("여기서 실패하는거래", e);
