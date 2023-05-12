@@ -229,6 +229,7 @@ app.get("/start", async (req, res) => {
   //녹음이 종료된 후, flag 초기화
   hashMap[req.session.flag] = 0;
   console.log("/stop", req.session.flag);
+  console.log("/stop file name : ", req.session.fileNmae);
   console.log("녹음 종료되었습니다.");
 
   res.json();
