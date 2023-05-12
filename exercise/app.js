@@ -192,6 +192,8 @@ function makeHashMap() {
 // Root 접근: index 파일을 렌더링
 app.get("/", (req, res) => {
   req.session.flag = makeHashMap(); //makeHashMap: 현재 시/분/초로 해쉬맵을 생성해줌.
+  req.session.fileNmae = "";
+  console.log("file", req.session.fileNmae);
   hashMap[req.session.flag] = 0;
   console.log("req.session.flag : ", req.session.flag);
   console.log("해쉬맵 키값확인", Object.keys(hashMap));
@@ -218,7 +220,8 @@ app.get("/start", async (req, res) => {
   newFilename = `recorded_audio_${now.getFullYear()}-${
     now.getMonth() + 1
   }-${now.getDate()}_${now.getHours()}-${now.getMinutes()}-${now.getSeconds()}.wav`;
-
+  req.session.fileNmae = newFilename;
+  console.log("res.session.filename", req.session.fileNmae);
   // recordAudio 함수를 사용하여, flag 초기화
   await recordAudio(newFilename, req.session.flag);
 
@@ -237,7 +240,7 @@ app.get("/stop", async (req, res) => {
   // User가 한말을 text로 변환.
   hashMap[req.session.flag] = 1;
   console.log("flag : ", hashMap[req.session.flag]);
-  const transcription = await transcribeAudio("b.mp3");
+  const transcription = await transcribeAudio(newFilename);
   console.log("2");
   console.log(transcription);
   res.json({ transcription });
